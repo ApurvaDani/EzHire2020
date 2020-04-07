@@ -30,7 +30,7 @@ import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
 import Open_Chatbot from "views/Open_Chatbot/Open_Chatbot.js"
 import InterviewCard from "./InterviewCard.js"
-import ReactLoading from 'react-loading';
+
 import { bugs, website, server } from "variables/general.js";
 
 import {
@@ -47,46 +47,48 @@ function loaddata(){
 
 }
 
-export default function Dashboard() {
+export default function DashboardCo() {
+//   useEffect(()=>{
+//   console.log("Huba huba")
+//   const data=localStorage.getItem('user_id')
+//   fetch("http://127.0.0.1:5000/dashboard",{
+//         method:'POST',
+//         headers: {
+//           'Content-Type': 'application/json',
+//           'Access-Control-Allow-Origin': '*',
+//         },
+//         body:JSON.stringify(data),
+//       })
+//       .then(res => res.json())
+//       .then(res =>{
+//         console.log("Success",typeof(res))
+//         res=JSON.stringify(res)
+//         const x= JSON.parse(res)
+//         const y = Object.values(x)
+//         console.log("Success2",typeof(y),y)
+//         const interviews=[]
+//         for (var key in x){
+//           //console.log("Yaya",x[key]["companyName"])
+//             console.log("Yaya",x[key][1]["companyName"])
+//             let companyname = x[key][1]["companyName"]
+//             interviews.push(<InterviewCard key={companyname} companyname={companyname} />)
+//         }
+//         localStorage.setItem("interviewcard",{interviews})
+//         console.log(interviews)
+        
 
+//       });
+// },[interviews]);
   const classes = useStyles();
-  let ans
   function openchat(){
     window.open("https://www.google.com/")
   }
-const [isloaded, setLoad] = React.useState(false)
-//const [isschedule, setSchedule] = React.useState('false')
-const user=localStorage.getItem('user_id')
-var data ={"user":user}
-fetch("http://127.0.0.1:5000/dashboardinterview",{
-        method:'POST',
-    body:JSON.stringify(data),
-      })
-      .then(res => res.json())
-      .then(res =>{
-    //localStorage.setItem("interdata",JSON.stringify(res))
-        console.log(res)
-        localStorage.setItem("intercand",JSON.stringify(res))
-        //res=JSON.stringify(res)
-        //console.log("details " + typeof(res)+res)
-
-    setLoad(true)
-    data=""
-})
-
-  if(isloaded){
-   ans = localStorage.getItem('intercand')
-        if(ans!="null"){
-        ans=JSON.parse(ans)
-        ans=Object.entries(ans).map(([key, value]) => {
-        console.log("key is "+key)
-        return (
-            <InterviewCard key={key} name={value.name} cname={value.cname} date={value.selectedDate} role={value.role} user={value.user} intkey={key} />
-        )
-    })
- }
+  let interviews = localStorage.getItem("interviewcard")
+  interviews = interviews.split(',');
+  console.log("inside dashboard interviews ",typeof(interviews), interviews)
+  const data1=localStorage.getItem('user_id')
   return (
-    <div> 
+    <div>
       <GridContainer>
         <GridItem xs={12} sm={6} md={3}>
           <Card>
@@ -164,7 +166,9 @@ fetch("http://127.0.0.1:5000/dashboardinterview",{
         </GridItem>
       </GridContainer>
       <GridContainer>
-       {ans}
+        {interviews.map((value, index) => {
+        return <InterviewCard key={index} companyname={value} />
+      })}
         
       </GridContainer>
       <GridContainer>
@@ -234,13 +238,4 @@ fetch("http://127.0.0.1:5000/dashboardinterview",{
       </GridContainer>
     </div>
   );
-}
-else{
-  return(
-  <div style={{display: 'flex', justifyContent: 'center'}}>
-  <ReactLoading type={'cylon'} color={'skyblue'} height={'18%'} width={'25%'} />
-  <br />
-  </div>
-  )
-}
 }

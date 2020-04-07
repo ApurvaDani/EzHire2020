@@ -18,6 +18,7 @@
 // @material-ui/icons
 import Dashboard from "@material-ui/icons/Dashboard";
 import Person from "@material-ui/icons/Person";
+import Event from "@material-ui/icons/Event";
 import LibraryBooks from "@material-ui/icons/LibraryBooks";
 import BubbleChart from "@material-ui/icons/BubbleChart";
 import LocationOn from "@material-ui/icons/LocationOn";
@@ -25,10 +26,12 @@ import Notifications from "@material-ui/icons/Notifications";
 import Unarchive from "@material-ui/icons/Unarchive";
 import Language from "@material-ui/icons/Language";
 // core components/views for Admin layout
-import DashboardPage from "views/Dashboard/Dashboard.js";
-import PublicInterview from "views/Dashboard/PublicInterview.js";
+import DashboardCo from "views/Dashboard/Dashboard.js";
+import SetInterview from "views/SetInterview/SetInterview.js";
+import ScheduleInterview from "views/ScheduleInterview/ScheduleInterview.js";
+import ScheduleName from "views/ScheduleName/ScheduleName.js";
 import UserProfile from "views/UserProfile/UserProfile.js";
-import PastInterviews from "views/PastInterviews/PastInterviews.js";
+//import TableList from "views/TableList/TableList.js";
 import Typography from "views/Typography/Typography.js";
 import Icons from "views/Icons/Icons.js";
 import Maps from "views/Maps/Maps.js";
@@ -37,6 +40,7 @@ import UpgradeToPro from "views/UpgradeToPro/UpgradeToPro.js";
 // core components/views for RTL layout
 import RTLPage from "views/RTLPage/RTLPage.js";
 import Open_Chatbot from "views/Open_Chatbot/Open_Chatbot.js";
+import CandidateResult from "views/CandidateResult/CandidateResult.js"
 
 
 const dashboardRoutes = [
@@ -45,24 +49,41 @@ const dashboardRoutes = [
     name: "Dashboard",
     rtlName: "لوحة القيادة",
     icon: Dashboard,
-    component: DashboardPage,
-    layout: "/admin"
+    component: DashboardCo,
+    layout: "/adminco"
   },
   {
-    path: "/user",
-    name: "User Profile",
-    rtlName: "ملف تعريفي للمستخدم",
-    icon: Person,
-    component: UserProfile,
-    layout: "/admin"
+    path: "/setinterview",
+    name: "Set Interview",
+    rtlName: "لوحة القيادة",
+    icon: Event,
+    component: SetInterview,
+    layout: "/adminco"
+  },
+    {
+    path: "/schedule",
+    name: "Schedule Interview",
+    rtlName: "لوحة القيادة",
+    icon: Event,
+    component: ScheduleInterview,
+    layout: "/adminco"
+  },
+      {
+    path: "/results",
+    name: "Candidate Results",
+    rtlName: "لوحة القيادة",
+    icon: Event,
+    component: CandidateResult,
+    layout: "/adminco"
   },
   {
-    path: "/pastinterview",
-    name: "Past Interviews",
+    path: "/nameschedule",
     rtlName: "قائمة الجدول",
-    icon: "content_paste",
-    component: PastInterviews,
-    layout: "/admin"
+    name: "Names",
+    icon : Event,
+    //variable : "name",
+    component: ScheduleName,
+    layout: "/adminco"
   },
   // {
   //   path: "/typography",
@@ -89,12 +110,12 @@ const dashboardRoutes = [
   //   layout: "/admin"
   // },
   {
-    path: "/public",
+    path: "/notifications",
     name: "Notifications",
     rtlName: "إخطارات",
     icon: Notifications,
-    component: PublicInterview,
-    layout: "/admin"
+    component: NotificationsPage,
+    layout: "/adminco"
   },
   // {
   //   path: "/rtl-page",
@@ -118,7 +139,7 @@ const dashboardRoutes = [
     rtlName: "پشتیبانی از راست به چپ",
     icon: Language,
     component: Open_Chatbot,
-    layout: "/admin"
+    layout: "/adminco"
   }
 ];
 

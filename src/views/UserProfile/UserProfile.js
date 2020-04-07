@@ -1,4 +1,4 @@
-import React,{useEffect,useState} from "react";
+import React,{useState, useEffect} from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -40,20 +40,44 @@ const useStyles = makeStyles(styles);
 
 export default function UserProfile() {
   const classes = useStyles();
-  let userprofile = localStorage.getItem('userprofile')
-  userprofile=JSON.parse(userprofile)
-  console.log(userprofile, typeof(userprofile), userprofile.username)
-  console.log("username is ", username, typeof(username))
-  const [username, usetusername]= useState(userprofile.username)
-  const [firstName, usetfirstName]= useState(userprofile.firstName)
-  const [lastName, usetlastName]= useState(userprofile.lastName)
-  const [email, usetemail]= useState(userprofile.email)
-  const [city, usetcity]= useState(userprofile.city)
-  const [postalCode,usetpostalCode]= useState(userprofile.postalCode)
-  const [aboutMe,usetaboutMe]= useState(userprofile.aboutMe)
+  const [isLoad, setLoad] = React.useState("false")
+  const [username, usetusername]= React.useState("")
+  const [firstName, usetfirstName]= React.useState("")
+  const [lastName, usetlastName]= React.useState("")
+  const [email, usetemail]= React.useState("")
+  const [city, usetcity]= React.useState("")
+  const [postalCode,usetpostalCode]= React.useState("")
+  const [aboutMe,usetaboutMe]= React.useState("")
+  useEffect(() => {
+  const user=localStorage.getItem('user_id')
+  let data1 ={"user" : user}
+  fetch("http://127.0.0.1:5000/getprofile",{
+     method:'POST',
+    body:JSON.stringify(data1),
+      })
+      .then(res => res.json())
+      .then(res =>{
+      
+  let userprofile=res
+  if(isLoad=="false"){
+  usetusername(userprofile.username)
+  usetfirstName(userprofile.firstName)
+  usetlastName(userprofile.lastName)
+  usetemail(userprofile.email)
+  usetcity(userprofile.city)
+  usetpostalCode(userprofile.postalCode)
+  usetaboutMe(userprofile.aboutMe)
+  setLoad("true")
+}
+})
+  })
   function updateprofile(){
     var data ={"fname": firstName,"lname":lastName,"email":email,"city":city,"code":postalCode,"aboutme" :aboutMe}
   }
+
+  if(isLoad == "true"){
+  
+
   return (
     <div>
       <GridContainer>
@@ -180,12 +204,11 @@ export default function UserProfile() {
               </a>
             </CardAvatar>
             <CardBody profile>
-              <h6 className={classes.cardCategory}>CEO / CO-FOUNDER</h6>
-              <h4 className={classes.cardTitle}>Apurva Dani</h4>
+              <h4 className={classes.cardCategory}>{city}</h4>
+              <h5 className={classes.cardTitle}>{firstName} {lastName}</h5>
+              <p className={classes.cardTitle}> {email} </p>
               <p className={classes.description}>
-                Don{"'"}t be scared of the truth because we need to restart the
-                human foundation in truth And I love you like Kanye loves Kanye
-                I love Rick Owens’ bed design but the back is...
+               {aboutMe}
               </p>
               <Button color="primary" round>
                 Follow
@@ -195,5 +218,15 @@ export default function UserProfile() {
         </GridItem>
       </GridContainer>
     </div>
-  );
+  )
+ 
+}
+else{
+ return(
+  <div>
+  <h2>Loading </h2>
+  </div>
+  )
+
+}
 }

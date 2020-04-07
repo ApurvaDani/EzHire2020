@@ -89,16 +89,13 @@ function Interviewee(props){
     const [ipass, isetpass]= useState("")
     const [icity, isetcity]= useState("")
     const [icode, isetcode]= useState("")
+    const [iabtme, isetabtme]= useState("")
     function isubmit(e){
       e.preventDefault()
-       var data ={"firstName":ifname,"lastName":ilname,"email":iemail,"password":ipass,"city":icity,"postalCode":icode,"username" :iemail}
-       alert(ifname+ilname+iemail+ipass+icity+icode)
+       var type="0"
+       var data ={"firstName":ifname,"lastName":ilname,"email":iemail,"password":ipass,"city":icity,"postalCode":icode,"username" :iemail, "aboutMe":iabtme, "type":type}
        fetch("http://127.0.0.1:5000/register",{
         method:'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-        },
         body:JSON.stringify(data),
       })
       .then(res => res.json())
@@ -107,7 +104,7 @@ function Interviewee(props){
         localStorage.setItem("userprofile",userprofile)
         console.log("Success",userprofile,typeof(userprofile))
       });
-       history.push('/admin')
+       history.push('/signin')
     }
     if(props.display===1)
     {
@@ -200,6 +197,20 @@ function Interviewee(props){
                 onChange={(e)=>isetcode(e.target.value)}
               />
             </Grid>
+             <Grid item xs={12} sm={12}>
+              <TextField
+                autoComplete="aboutme"
+                name="aboutme"
+                variant="outlined"
+                required
+                fullWidth
+                id="postalcode"
+                label="About Me"
+                autoFocus
+                onChange={(e)=>isetabtme(e.target.value)}
+                multiline
+              />
+            </Grid>
             <Grid item xs={12}>
               <FormControlLabel
                 control={<Checkbox value="allowExtraEmails" color="primary" />}
@@ -245,9 +256,21 @@ function Interviewer(props){
     const [ccity, csetcity]= useState("")
     function csubmit(e){
       e.preventDefault()
-          var data ={"companyname":ccname,"email":cemail,"password":cpass,"city":ccity}
+          var type="1"
+          var data ={"companyname":ccname,"email":cemail,"password":cpass,"city":ccity,"type":type}
        alert(ccname+cemail+cpass+ccity)
-       history.push('/admin')
+       fetch("http://127.0.0.1:5000/register",{
+        method:'POST',
+        body:JSON.stringify(data),
+      })
+      .then(res => res.json())
+      .then(res =>{
+        let userprofile=res
+        localStorage.setItem("userprofile",userprofile)
+        console.log("Success",userprofile,typeof(userprofile))
+      });
+
+       history.push('/signin')
 
     }
     if(props.display===0){

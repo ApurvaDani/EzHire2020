@@ -1,0 +1,55 @@
+﻿id,difficulty,topic,question,answerid,type
+1001,E,OOP,What is an Object? ,5001,subjective
+1002,M,OOP,Define Destructor? ,5002,subjective
+1003,M,OOP,What is an Inline function?,5003,subjective
+1004,H,OOP,What is a friend function? ,5004,subjective
+1005,E,OOP,What is function overloading? ,5005,subjective
+1006,H,OOP,What is the super keyword?,5006,subjective
+1007,E,OOP,How many arguments can a ternary operator take?,5007,subjective
+1008,M,OOP,What is ‘self’ pointer?,5008,subjective
+1009,H,OOP,What is the default access modifier in a class?,5009,subjective
+1010,M,OOP,What is a sub class and a super class?,5010,subjective
+1011,H,OOP,Which OOPS concept exposes only the necessary information to the calling functions?,5011,subjective
+1012,M,OOP,What is a class?,"5012, 5014",subjective
+1013,M,OOP,What is Single Inheritance?,5013,subjective
+1101,E,EH,How many except statements can a try-except block have?,5101,mcq
+1102,H,EH,When will the else part of try-except-else be executed?,5102,subjective
+1103,M,EH,Can one block of except statements handle multiple exception?,5103,subjective
+1104,E,EH,When is the finally block executed?,5104,subjective
+1105,E,EH,What happens when ‘1’ == 1 is executed?,5105,subjective
+1106,H,EH,What is exception in Python?,5106,subjective
+1107,M,EH,What Is an Error in Python?,5107,subjective
+1108,M,EH,How to catch exceptions in Python?,5108,subjective
+1201,M,NW,What is a socket?,"5201, 5202",subjective
+1202,E,NW,What are the layers of OSI model?,5203,subjective
+1203,H,NW,What does a socket consist of?,5204,subjective
+1204,M,NW,What Is Encapsulation Technique?,5205,subjective
+1205,H,NW,What is multiprogramming?,5206,subjective
+1206,M,NW,What is .recv() function used for?,5207,subjective
+1207,E,NW,How does a race condition occur?,5208,subjective
+1208,H,NW,What are RAW sockets?,5209,subjective
+1209,E,NW,What is the difference between UDP and TCP?,5210,
+1301,E,DJ,Which architectural pattern does Django follow?,"5301, 5302, 5303",subjective
+1302,E,DJ,Is Django a high-level web framework or low-level framework?,"5304, 5305, 5306",subjective
+1303,M,DJ,What are the three main components of Django?,"5307, 5308",subjective
+1304,M,DJ,Give three advantages of Django.,5309,mcq
+1305,M,DJ,Give three disadvantages of Django.,5310,mcq
+1306,H,DJ,What is the use of admin.py in Django?,"5311, 5312, 5313",subjective
+1307,H,DJ,What are the signals in Django?,"5314, 5315, 5316",subjective
+1308,H,DJ,What are the two important parameters in signals?,5317,subjective
+1309,M,DJ,Which of the following are Django Exception Classes?,5318,mcq
+1310,M,DJ,What is a Django Session?,"5319, 5320",
+1311,H,DJ,What is Django Rest Framework (DRF)?,5321,subjective
+1312,H,DJ,What is Django ORM?,5322,subjective
+1313,E,DJ,What port does Django server works on?,5323,subjective
+1314,M,DJ,What templating does Django use?,5324,subjective
+1401,E,ML,Which learning technique uses labeled data?,"5401, 5402",subjective
+1402,E,ML,What is unsupervised learning?,"5403, 5404, 5405",subjective
+1403,E,ML,What is Ensemble Learning in Machine Learning?,"5406, 5407",subjective
+1404,M,ML,Which of the following methods can be used for screening outliers,5408,mcq
+1405,M,ML,What is overfitting?,"5409, 5410",subjective
+1406,H,ML,Explain in short backpropagation algorithm?,"5411, 5412",subjective
+1407,M,ML,What is linear regression?,"5413, 5414",
+1408,M,ML,What is classification?,"5415, 5416, 5417",subjective
+1409,H,ML,What is association in machine learning?,"5418, 5419, 5420",subjective
+1410,H,ML,What is transfer learning? ,"5421, 5422",subjective

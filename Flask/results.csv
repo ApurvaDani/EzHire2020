@@ -1,0 +1,14 @@
+questionid,topic,difficulty,question,userAnswer,score
+1104,EH,E,When is the finally block executed?,a,3.0
+1101,EH,E,How many except statements can a try-except block have?,b,0.0
+1105,EH,E,What happens when ‘1’ == 1 is executed?,c,2.0
+1108,EH,M,How to catch exceptions in Python?,d,0.0
+1107,EH,M,What Is an Error in Python?,e,0.0
+1209,NW,E,What is the difference between UDP and TCP?,f,0.0
+1202,NW,E,What are the layers of OSI model?,g,0.0
+1301,DJ,E,Which architectural pattern does Django follow?,h,0.0
+1302,DJ,E,Is Django a high-level web framework or low-level framework?,e,4.0
+1401,ML,E,Which learning technique uses labeled data?,r,0.0
+1403,ML,E,What is Ensemble Learning in Machine Learning?,y,0.0
+1005,OOP,E,What is function overloading? ,u,0.0
+1007,OOP,E,How many arguments can a ternary operator take?,j,0.0

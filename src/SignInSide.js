@@ -43,10 +43,9 @@ const useStyles = makeStyles(theme => ({
     height: '100vh',
   },
   image: {
-    backgroundImage: 'url(https://source.unsplash.com/random)',
+    backgroundImage: 'url(background.jpg)',
     backgroundRepeat: 'no-repeat',
-    backgroundColor:
-      theme.palette.type === 'dark' ? theme.palette.grey[900] : theme.palette.grey[50],
+    backgroundColor: theme.palette.type === 'dark' ? theme.palette.grey[900] : theme.palette.grey[50],
     backgroundSize: 'cover',
     backgroundPosition: 'center',
   },
@@ -74,6 +73,7 @@ export default function SignInSide() {
   const [email, setEmail]= useState("")
   const [password,setPassword]=useState("")
   const [loginf,setLoginf]=useState("none")
+  let user_det
   function Login(props){
   const styles = {
     color: 'red',
@@ -85,105 +85,38 @@ export default function SignInSide() {
   return(
     <p style={styles}><i><b>Login Failed, Please try again! </b></i></p>
     )
-}
+  }
 
   function onSubmit(e){
+    let user_type
     e.preventDefault()
     setLoginf("none")
     var response
-    // axios.post(`http://127.0.0.1:5000/`, {
-    //   headers: {
-    //       'Content-Type': 'application/json',
-    //       "Access-Control-Allow-Origin": "*",
-    //       "Accept": "application/json"
-    //   }
-    // },{data:{email:email, password:password}})
-    //     .then(res => {
-    //         console.log("This is it"+res);
-    //         console.log("What data?"+res.data+ "type is "+typeof(res.data));
-            
-    //         response= res.data;
-    //         alert(response)
-    //         setEmail(response);
-    //         //addResponseMessage(response);
-    //         //alert(email);
-    //     }).then(res => {setEmail(response);alert(response);})
-    //     .catch(err => {
-    //         console.log("Error hai "+err);
-    //         alert("NOOOOOO" +err);
-    //     }); 
     var data ={"email":email,"password":password}
       fetch("http://127.0.0.1:5000/",{
         method:'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-        },
         body:JSON.stringify(data),
       })
       .then(res => res.json())
       .then(res =>{
         if(res['mess']=='Login Successful Bitch'){
-          
           localStorage.setItem('user_id',res['user_id'])
-         
-          //history.push('/admin')
+          user_det=JSON.parse(res['user_data'])
+          user_type=user_det['type']
+          if(user_type=="0"){
+          history.push('/admin')
         }
         else{
+          localStorage.setItem("companyname", user_det['companyname'])
+          history.push('/adminco')
+        }
+      }
+        else{
+          alert("Login Failed")
           setLoginf("block")
         }
       })
-      .then(res => {
-        const data1=localStorage.getItem('user_id')
-        fetch("http://127.0.0.1:5000/dashboard",{
-        method:'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-        },
-        body:JSON.stringify(data1),
-      })
-      .then(res => res.json())
-      .then(res =>{
-        console.log("Success",typeof(res))
-        res=JSON.stringify(res)
-        const x= JSON.parse(res)
-        const y = Object.values(x)
-        console.log("Success2",typeof(y),y)
-        const interviews=[]
-        for (var key in x){
-          //console.log("Yaya",x[key]["companyName"])
-            console.log("Yaya",x[key][1]["companyName"])
-            let companyname = x[key][1]["companyName"]
-            interviews.push(companyname)
         }
-        localStorage.setItem("interviewcard",interviews)
-        console.log("Inside signin ",interviews, typeof(interviews))
-        history.push('/admin')
-
-      })
-      .then(res =>{
-        const data=localStorage.getItem('user_id')
-        fetch("http://127.0.0.1:5000/signup",{
-        method:'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-        },
-        body:JSON.stringify(data),
-      })
-      .then(res => res.json())
-      .then(res =>{
-        let userprofile=res
-        localStorage.setItem("userprofile",userprofile)
-        console.log("Success",userprofile,typeof(userprofile))
-      });
-
-      })
-      history.push('/admin')
-      });
-
-  }
 
   return (
     <Grid container component="main" className={classes.root}>

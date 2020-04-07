@@ -23,16 +23,20 @@ import history from "./history"
 
 // core components
 import Admin from "layouts/Admin.js";
+import AdminCo from "layouts/AdminCo.js"
 import RTL from "layouts/RTL.js";
 import SignInSide from "SignInSide.js"
 import SignUp from "SignUp"
+import ChatBot from "views/ChatBot/ChatBot.js"
 import "assets/css/material-dashboard-react.css?v=1.8.0";
 
 ReactDOM.render(
   <Router history={history}>
     <Switch>
       <Route path="/signin" component={SignInSide} />
+      <Route path="/admin/startinterview" component={ChatBot} />
       <Route path="/admin" component={Admin} />
+      <Route path="/adminco" component={AdminCo} />
       <Route path="/signup" component={SignUp} />
       <Redirect from="/" to="/signin" />
     </Switch>

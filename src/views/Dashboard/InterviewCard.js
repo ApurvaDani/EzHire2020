@@ -18,6 +18,7 @@ import {
   completedTasksChart
 } from "variables/charts.js";
 import AccessTime from "@material-ui/icons/AccessTime";
+import { Link } from 'react-router-dom'; 
 const useStyles = makeStyles(styles)
 
 export default function InterviewCard(props){
@@ -30,17 +31,29 @@ export default function InterviewCard(props){
 	return(
 		 <GridItem xs={12} sm={12} md={4}>
           <Card chart>
-            <CardHeader color="danger">
+            <CardHeader color="info">
+            <h5 className={classes.cardTitle}><i><font color="white">{props.name}</font></i></h5>
             </CardHeader>
             <CardBody>
-              <h4 className={classes.cardTitle}>{props.companyname}</h4>
-              <p className={classes.cardCategory}>Last Campaign Performance</p>
+              <h3 className={classes.cardTitle}>{props.cname}</h3>
+              <p className={classes.cardCategory}> {props.role} </p>
+              <p className={classes.cardCategory}> {props.date} </p>
             </CardBody>
             <CardFooter chart>
               <div className={classes.stats}>
-                <AccessTime /> <a href="" id={props.companyname} onClick={openchat}>Go to interview </a>
+                <AccessTime /> <Link
+                            to={{
+                                pathname: "startinterview/",
+                                state: {
+                                    key: props.intkey,
+                                    cid: props.user,
+                                    ispublic: false
+                                }
+                            }}
+                        >Go To Interview</Link>
               </div>
             </CardFooter>
+            
           </Card>
         </GridItem>
 		)

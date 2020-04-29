@@ -10,6 +10,20 @@ let interviewid
 let companyid
 let candetails
 const [isloaded, setLoad] = React.useState(false)
+const [isfetch, setFetch] = React.useState(true)
+
+function fetchcall(){
+	alert(isfetch)
+	if(isfetch){
+	this.setFetch(false)
+}
+	else{
+		this.setFetch(true)
+	}
+
+	alert(isfetch)
+	alert(isfetch)
+}
 
 if(location.state){
 		interviewname = location.state.name
@@ -34,8 +48,9 @@ candetails=JSON.parse(candetails)
 if(Object.entries(candetails).length!= 0){
 candetails=Object.entries(candetails).map(([key, value]) => {
         console.log("key is "+key)
+
         return (
-            <CandCard key={key} fname={value.firstName} lname={value.lastName} email={value.email} aboutme={value.aboutMe} cid={companyid} intid={interviewid} user={key}/>
+            <CandCard key={key} fname={value.firstName} lname={value.lastName} email={value.email} aboutme={value.aboutMe} cid={companyid} intid={interviewid} user={key} fetch={fetchcall}/>
         )
     })
 }

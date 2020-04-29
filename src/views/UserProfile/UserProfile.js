@@ -12,6 +12,12 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardAvatar from "components/Card/CardAvatar.js";
 import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
+import PropTypes from "prop-types";
+// @material-ui/core components
+import AddAlert from "@material-ui/icons/AddAlert";
+// core components
+import SnackbarContent from "components/Snackbar/SnackbarContent.js";
+import Snackbar from "components/Snackbar/Snackbar.js";
 
 import avatar from "assets/img/faces/apurva.jpg";
 
@@ -48,6 +54,30 @@ export default function UserProfile() {
   const [city, usetcity]= React.useState("")
   const [postalCode,usetpostalCode]= React.useState("")
   const [aboutMe,usetaboutMe]= React.useState("")
+  const [tl, setTL] = React.useState(false);
+  let bot="bottom"
+  let cen="center"
+  React.useEffect(() => {
+    // Specify how to clean up after this effect:
+    return function cleanup() {
+      // to stop the warning of calling setState of unmounted component
+      var id = window.setTimeout(null, 0);
+      while (id--) {
+        window.clearTimeout(id);
+      }
+    };
+  });
+  const showNotification = place => {
+    switch (place) {
+      case "tl":
+        if (!tl) {
+          setTL(true);
+          setTimeout(function() {
+            setTL(false);
+          }, 1000);
+        }
+      }
+  }
   useEffect(() => {
   const user=localStorage.getItem('user_id')
   let data1 ={"user" : user}
@@ -80,7 +110,10 @@ export default function UserProfile() {
 
   return (
     <div>
+    
+
       <GridContainer>
+
         <GridItem xs={12} sm={12} md={8}>
           <Card>
             <CardHeader color="primary">
@@ -104,6 +137,7 @@ export default function UserProfile() {
                 </GridItem>
                 <GridItem xs={12} sm={12} md={4}>
                   <CustomInput
+                    disabled="True"
                     labelText="Email address"
                     id="email-address"
                      inputProps={{
@@ -192,7 +226,7 @@ export default function UserProfile() {
               </GridContainer>
             </CardBody>
             <CardFooter>
-              <Button color="primary">Update Profile</Button>
+              <Button color="primary" onClick={() => showNotification("tl")}>Update Profile</Button>
             </CardFooter>
           </Card>
         </GridItem>
@@ -217,6 +251,14 @@ export default function UserProfile() {
           </Card>
         </GridItem>
       </GridContainer>
+       <Snackbar
+                  place="tl"
+                  color="info"
+                  anchorOrigin={{bot}, {cen}}
+                  icon={AddAlert}
+                  message="Welcome to MATERIAL DASHBOARD React - a beautiful freebie for every web developer."
+                  open={tl}
+                />
     </div>
   )
  

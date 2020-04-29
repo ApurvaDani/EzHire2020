@@ -90,12 +90,12 @@ const dashboardRoutes = [
   // },
   {
     path: "/public",
-    name: "Notifications",
+    name: "Public Interviews",
     rtlName: "إخطارات",
     icon: Notifications,
     component: PublicInterview,
     layout: "/admin"
-  },
+  }
   // {
   //   path: "/rtl-page",
   //   name: "RTL Support",
@@ -112,14 +112,6 @@ const dashboardRoutes = [
   //   component: UpgradeToPro,
   //   layout: "/admin"
   // }
-  {
-    path: "/open_chatbot",
-    name: "Open Chatbot",
-    rtlName: "پشتیبانی از راست به چپ",
-    icon: Language,
-    component: Open_Chatbot,
-    layout: "/admin"
-  }
 ];
 
 export default dashboardRoutes;

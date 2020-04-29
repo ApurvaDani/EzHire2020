@@ -36,7 +36,7 @@ const switchRoutes = (
       }
       return null;
     })}
-    <Redirect from="/adminco" to="/adminco/dashboard" />
+    <Redirect from="/adminco" to="/adminco/schedule" />
   </Switch>
 );
 

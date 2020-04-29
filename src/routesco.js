@@ -44,14 +44,15 @@ import CandidateResult from "views/CandidateResult/CandidateResult.js"
 
 
 const dashboardRoutes = [
-  {
-    path: "/dashboard",
-    name: "Dashboard",
+    {
+    path: "/schedule",
+    name: "Your Interviews",
     rtlName: "لوحة القيادة",
-    icon: Dashboard,
-    component: DashboardCo,
+    icon: Event,
+    component: ScheduleInterview,
     layout: "/adminco"
   },
+
   {
     path: "/setinterview",
     name: "Set Interview",
@@ -60,14 +61,7 @@ const dashboardRoutes = [
     component: SetInterview,
     layout: "/adminco"
   },
-    {
-    path: "/schedule",
-    name: "Schedule Interview",
-    rtlName: "لوحة القيادة",
-    icon: Event,
-    component: ScheduleInterview,
-    layout: "/adminco"
-  },
+
       {
     path: "/results",
     name: "Candidate Results",
@@ -84,7 +78,7 @@ const dashboardRoutes = [
     //variable : "name",
     component: ScheduleName,
     layout: "/adminco"
-  },
+  }
   // {
   //   path: "/typography",
   //   name: "Typography",
@@ -109,14 +103,7 @@ const dashboardRoutes = [
   //   component: Maps,
   //   layout: "/admin"
   // },
-  {
-    path: "/notifications",
-    name: "Notifications",
-    rtlName: "إخطارات",
-    icon: Notifications,
-    component: NotificationsPage,
-    layout: "/adminco"
-  },
+
   // {
   //   path: "/rtl-page",
   //   name: "RTL Support",
@@ -133,14 +120,7 @@ const dashboardRoutes = [
   //   component: UpgradeToPro,
   //   layout: "/admin"
   // }
-  {
-    path: "/open_chatbot",
-    name: "Open Chatbot",
-    rtlName: "پشتیبانی از راست به چپ",
-    icon: Language,
-    component: Open_Chatbot,
-    layout: "/adminco"
-  }
+
 ];
 
 export default dashboardRoutes;

@@ -6,9 +6,15 @@ import logo from 'logo.svg';
 //import { Socket } from 'react-socket-io';
 import openSocket from "socket.io-client";
 import io from "socket.io-client";
-
+import bgimage from "./background.jpg"
+import history from "history.js"
 const uri = 'http://127.0.0.1:5000';
 const options = { transports: ['websocket'] };
+var sectionStyle = {
+  width: "100%",
+  backgroundImage: "url("+ bgimage + ")"
+};
+
 //const socket = openSocket('http://127.0.0.1:5000',options);
 
 class Chatbot extends Component{
@@ -27,19 +33,17 @@ class Chatbot extends Component{
       user : localStorage.getItem('user_id')
 		};
 	}
-  
+
   Interviewstart = () => {
     alert("insideclick")
     this.setState({isStart:true});
   }
 
 	componentDidMount() {
-    alert("Inside Did Mount")
 		this.initSocket()
     addResponseMessage("Welcome to Ezhire! Your interview is about to begin. Are you ready?");
     //user=localStorage.getItem('user_id')
     var data1 ={"interviewid": this.state.loc, "user" : this.state.user, "cname" : this.state.cid, "ispublic":this.state.ispublic}
-    alert("cid "+this.state.cid + "interviewid " + this.state.loc + "user " + this.state.user+this.state.ispublic )
     fetch("http://127.0.0.1:5000/finishinterview",{
         method:'POST',
     body:JSON.stringify(data1),
@@ -74,14 +78,25 @@ class Chatbot extends Component{
     	addResponseMessage(res['mess'])
     	counter= counter+1
     	console.log("The counter is",counter)
+      if(res['mess'] =='Thank you!'){
+      let socket=io(uri)
+      socket.on('disconnect',()=>{
+      console.log("Client Disconnected")
+      })
+      alert("You have successfully completed your interview!")
+      history.push('/admin/pastinterview')
     }
+    }
+
      })
 
   }
 render(){
   if(this.state.isStart){
 	return(
+  
 		<div className="App">
+    <img src={bgimage} width="900px" height="auto"/>
         <Widget
           handleNewUserMessage={this.handleNewUserMessage}
           profileAvatar={logo}

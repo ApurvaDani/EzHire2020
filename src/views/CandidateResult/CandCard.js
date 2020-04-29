@@ -19,6 +19,8 @@ import Fade from '@material-ui/core/Fade';
 import PDFViewer from 'pdf-viewer-reactjs'
 import ChartistGraph from "react-chartist";
 import {Pie, Doughnut} from 'react-chartjs-2';
+import history from 'history.js'
+
  
 
 
@@ -252,6 +254,10 @@ var prof = value.proficiency
 function viewResults(){
 			setOpen(true)
 }
+
+function setfetch(){
+  props.fetch()
+}
 function Accept(){
   var data ={"cid": props.cid, "intid": props.intid, "user":props.user}
     fetch("http://127.0.0.1:5000/acceptcandidate",{
@@ -261,6 +267,8 @@ function Accept(){
       .then(res => res.json())
       .then(res =>{
     console.log(res)
+    alert('Candidate Result Updated!')
+    history.push('/adminco/schedule')
 })
 }
 function Decline(){
@@ -272,6 +280,8 @@ function Decline(){
       .then(res => res.json())
       .then(res =>{
     console.log(res)
+    alert('Candidate Result Updated!')
+    history.push('/adminco/schedule')
 })
 }
 	return(
@@ -297,7 +307,7 @@ function Decline(){
                 <Button color="primary" round onClick={Accept}>
                 Accept
               </Button>
-              <Button color="primary" round onClick={viewResults}>
+              <Button color="primary" round onClick={Decline}>
                 Decline
               </Button>
               </div>

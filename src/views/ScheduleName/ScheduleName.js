@@ -8,8 +8,8 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import PDFViewer from 'pdf-viewer-reactjs'
+import { useAlert, positions, Provider as AlertProvider } from 'react-alert'
 import history from "history.js"
-
 
 
 const useStyles = makeStyles(theme => ({
@@ -133,7 +133,7 @@ export default function ScheduleName(){
       .then(res => res.json())
       .then(res =>{
  		alert("Interview Scheduled")
- 		history.push('/adminco/dashboard')
+ 		history.push('/adminco/schedule')
 })
 			
 		}		
@@ -204,7 +204,7 @@ export default function ScheduleName(){
 		else{
 			return(
 
-			<h2> Please select an interview from Schedule Interview Tab to proceed! </h2>
+			<h2> Please select an interview from Your Interviews Tab to proceed! </h2>
 			)
 		}
 

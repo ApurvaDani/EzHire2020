@@ -4,7 +4,8 @@ import MaterialTable from 'material-table'
 import ReactLoading from 'react-loading';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
-
+import Config from "../../Config.js"
+import Auth from "../../Auth.js"
 const useStyles = makeStyles(theme => ({
   button: {
     margin: theme.spacing(1),
@@ -26,6 +27,7 @@ const useStyles = makeStyles(theme => ({
 
 
 export default function TableList() {
+  Auth()
   let interfbnames=[]
   let namejson={}
   let interviewname
@@ -35,13 +37,12 @@ export default function TableList() {
   const classes = useStyles();
   let user=localStorage.getItem('user_id')
   var data ={"user": user}
-  fetch("http://127.0.0.1:5000/pastinterview",{
+  fetch(Config.serverurl+"/pastinterview",{
         method:'POST',
     body:JSON.stringify(data),
       })
       .then(res => res.json())
       .then(res =>{
-    console.log(res)
     localStorage.setItem("pastinterview",JSON.stringify(res))
     setLoad('true')
     data=""
@@ -55,7 +56,6 @@ if(isloaded=='true'){
         Object.entries(value['results']).map(([key1, value1]) => {
           console.log(key1 + " yoo "+user)
           if(key1==user){
-            console.log(value1)
             statusint=value1.Status
           }
           

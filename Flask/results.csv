@@ -1,13 +1,25 @@
 questionid,topic,difficulty,question,userAnswer,score
-1105,EH,E,What happens when ‘1’ == 1 is executed?,true,0
-1101,EH,E,How many except statements can a try-except block have?,a,0
-1104,EH,E,When is the finally block executed?,b,2.0
-1202,NW,E,What are the layers of OSI model?,c,0
-1207,NW,E,How does a race condition occur?,d,0
-1403,ML,E,What is Ensemble Learning in Machine Learning?,e,0
-1401,ML,E,Which learning technique uses labeled data?,a,0
-1301,DJ,E,Which architectural pattern does Django follow?,d,0
-1302,DJ,E,Is Django a high-level web framework or low-level framework?,t,0
-1007,OOP,E,How many arguments can a ternary operator take?,w,0
-1001,OOP,E,What is an Object? ,a,0
-1001,OOP,E,What is an Object? ,yes,0
+1301,DJ,E,Which architectural pattern does Django follow?,Model View Control,5.0
+1309,DJ,M,What are some Django Exception Classes?,I am not sure,0.0
+1304,DJ,M,Give three advantages of Django.,"Fast, Rapid, Easy to learn",5.0
+1314,DJ,M,What templating does Django use?,I dont know,0.0
+1305,DJ,M,Give three disadvantages of Django.,"I only know one, it has a complex folder structure",0.0
+1101,EH,E,What is the minimum number of except statements a try-catch block should have?,One,5.0
+1107,EH,M,What Is an Error in Python?,Anything that interrupts the execution of the program,0.0
+1103,EH,M,Can one block of except statements handle multiple exception?,Yes it can,0.0
+1108,EH,M,How to catch exceptions in Python?,Using try catch statement,5.0
+1001,OOP,E,What is an Object? ,It is an instance of a class,5.0
+1003,OOP,M,What is an Inline function?,Not sure,0.0
+1008,OOP,M,What is ‘self’ pointer?,It is used to point the current object,0.0
+1013,OOP,M,What is Single Inheritance?,It only inherits from one parent class,5.0
+1010,OOP,M,What is a sub class and a super class?,Sub class inherits from super class,0.0
+1401,ML,E,Which learning technique uses labeled data?,Supervised learning,5.0
+1405,ML,M,What is overfitting?,When model learns the noise,4.0
+9016,ML,M,An overfitted model incorporates _____ which negatively affects the model.,noise,5.0
+1407,ML,M,What is linear regression?,It is used to predict linear relations,5.0
+1410,ML,H,What is transfer learning? ,When you use already trained model for another task,4.0
+1409,ML,H,What is association in machine learning?,Idk,0.0
+1406,ML,H,Explain in short backpropagation algorithm?,It is used in the training of neural netowrk,5.0
+1207,NW,E,How does a race condition occur?,When two function change the same variable simultaneously,2.0
+1202,NW,E,What are the layers of OSI model?,7,0.0
+1209,NW,E,What is the difference between UDP and TCP?,UDP is conectionless,0.0

@@ -18,6 +18,9 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import SaveIcon from '@material-ui/icons/Save';
 import history from "history.js"
+import Config from "../../Config.js"
+import Auth from "../../Auth.js"
+
 const useStyles = makeStyles(theme => ({
   root: {
     '& > *': {
@@ -43,6 +46,7 @@ const defaultProps = {
   border: 1,
 };
 function SetInterview(){
+  Auth()
 	const classes = useStyles();
 	const today = new Date()
 	const [selectedDate, setSelectedDate] = React.useState(new Date())
@@ -59,7 +63,7 @@ function SetInterview(){
     const user=localStorage.getItem('user_id')
     const cname = localStorage.getItem('companyname')
     var data ={"name":name,"role":role,"location":location,"selectedDate":selectedDate,"degree":degree,"opento":opento,"description":description,"cname":cname, "user":user}
-       fetch("http://127.0.0.1:5000/companyinterview",{
+       fetch(Config.serverurl+"/companyinterview",{
         method:'POST',
         body:JSON.stringify(data),
       })

@@ -18,8 +18,9 @@ import AddAlert from "@material-ui/icons/AddAlert";
 // core components
 import SnackbarContent from "components/Snackbar/SnackbarContent.js";
 import Snackbar from "components/Snackbar/Snackbar.js";
-
+import Config from "../../Config.js"
 import avatar from "assets/img/faces/apurva.jpg";
+import Auth from "../../Auth.js"
 
 const styles = {
   cardCategoryWhite: {
@@ -45,6 +46,7 @@ const useStyles = makeStyles(styles);
 
 
 export default function UserProfile() {
+  Auth()
   const classes = useStyles();
   const [isLoad, setLoad] = React.useState("false")
   const [username, usetusername]= React.useState("")
@@ -81,7 +83,7 @@ export default function UserProfile() {
   useEffect(() => {
   const user=localStorage.getItem('user_id')
   let data1 ={"user" : user}
-  fetch("http://127.0.0.1:5000/getprofile",{
+  fetch(Config.serverurl+"/getprofile",{
      method:'POST',
     body:JSON.stringify(data1),
       })

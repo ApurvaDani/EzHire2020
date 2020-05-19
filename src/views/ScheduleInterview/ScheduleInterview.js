@@ -3,14 +3,18 @@ import InterCard from './InterCard.js'
 import GridContainer from "components/Grid/GridContainer.js";
 import history from "history.js"
 import ReactLoading from 'react-loading';
+import Config from "../../Config.js"
+import Auth from "../../Auth.js"
+
 export default function ScheduleInterview(){
+Auth()
 let ans
 let todoiter=""
 const [isloaded, setLoad] = React.useState('false')
 const [isschedule, setSchedule] = React.useState('false')
 const user=localStorage.getItem('user_id')
 var data ={"user":user}
-fetch("http://127.0.0.1:5000/scheduleinterview",{
+fetch(Config.serverurl+"/scheduleinterview",{
         method:'POST',
 		body:JSON.stringify(data),
       })
@@ -28,10 +32,7 @@ fetch("http://127.0.0.1:5000/scheduleinterview",{
  	ans = localStorage.getItem('interdata')
  	if(ans!="null"){
  	ans=JSON.parse(ans)
- 	console.log(user)
  	ans=Object.entries(ans).map(([key, value]) => {
-        console.log("key is "+key)
-        //console.log(value)
         return (
             <InterCard key={key} name={value.name} role={value.role} opento={value.opento} cid={key} cname={user}/>
         )

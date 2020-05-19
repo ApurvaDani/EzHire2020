@@ -10,8 +10,8 @@ import Fade from '@material-ui/core/Fade';
 import PDFViewer from 'pdf-viewer-reactjs'
 import { useAlert, positions, Provider as AlertProvider } from 'react-alert'
 import history from "history.js"
-
-
+import Config from "../../Config.js"
+import Auth from "../../Auth.js"
 const useStyles = makeStyles(theme => ({
   button: {
     margin: theme.spacing(1),
@@ -30,6 +30,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 export default function ScheduleName(){
+		Auth()
 		const classes = useStyles();
 		let location = useLocation();
 		let interviewname
@@ -38,6 +39,7 @@ export default function ScheduleName(){
 		let namejson={}
 		let userjson={}
 		let [isloaded, setLoad] = React.useState('false')
+		let [isscheduled, setSchedule] = React.useState(false)
   		const [open, setOpen] = React.useState(false);
 
   		const handleClose = () => {
@@ -48,7 +50,7 @@ export default function ScheduleName(){
 		interviewid = location.state.cid
 		companyid = location.state.cname
 		var data ={"companyid": companyid, "interviewid": interviewid}
-		fetch("http://127.0.0.1:5000/interviewnames",{
+		fetch(Config.serverurl+"/interviewnames",{
         method:'POST',
 		body:JSON.stringify(data),
       })
@@ -126,12 +128,14 @@ export default function ScheduleName(){
 			)
 		var data ={"interviewname": finalnames, "interviewid" : interviewid, "companyid":companyid, "isTaken":'false'}
 		console.log(data)
-		fetch("http://127.0.0.1:5000/schedulenames",{
+		setSchedule(true)
+		fetch(Config.serverurl+"/schedulenames",{
         method:'POST',
 		body:JSON.stringify(data),
       })
       .then(res => res.json())
       .then(res =>{
+		setSchedule(false)
  		alert("Interview Scheduled")
  		history.push('/adminco/schedule')
 })
@@ -187,6 +191,7 @@ export default function ScheduleName(){
         className={classes.button}
         onClick={ScheduleInterview}
       >
+ 		{isscheduled && <i className="fa fa-refresh fa-spin">  </i>}
         Schedule Interview
       </Button>
         </div>

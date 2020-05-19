@@ -14,6 +14,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Input } from '@material-ui/core';
 import history from "./history"
+import Config from "./Config.js"
 
 function Copyright() {
   return (
@@ -95,17 +96,20 @@ function Interviewee(props){
       e.preventDefault()
        var type="0"
        var data ={"firstName":ifname,"lastName":ilname,"email":iemail,"password":ipass,"city":icity,"postalCode":icode,"username" :iemail, "aboutMe":iabtme, "type":type}
-       fetch("http://127.0.0.1:5000/register",{
+       fetch(Config.serverurl+"/register",{
         method:'POST',
         body:JSON.stringify(data),
       })
       .then(res => res.json())
       .then(res =>{
-        let userprofile=res
-        localStorage.setItem("userprofile",userprofile)
-        console.log("Success",userprofile,typeof(userprofile))
+       if(res['success'] == "Successfull response"){
+        history.push('/signin')
+       }
+       else{
+        alert("Account creation failed due to one or many of the following results: \n1)Email already exists\n2)Password length is less than 6 characters.")
+       }
       });
-       history.push('/signin')
+       
     }
     if(props.display===1)
     {
@@ -250,12 +254,13 @@ function Interviewer(props){
     const [cemail, csetemail]= useState("")
     const [cpass, csetpass]= useState("")
     const [ccity, csetcity]= useState("")
+    
     function csubmit(e){
       e.preventDefault()
           var type="1"
           var data ={"companyname":ccname,"email":cemail,"password":cpass,"city":ccity,"type":type}
        alert(ccname+cemail+cpass+ccity)
-       fetch("http://127.0.0.1:5000/register",{
+       fetch(Config.serverurl+"/register",{
         method:'POST',
         body:JSON.stringify(data),
       })
@@ -263,7 +268,6 @@ function Interviewer(props){
       .then(res =>{
         let userprofile=res
         localStorage.setItem("userprofile",userprofile)
-        console.log("Success",userprofile,typeof(userprofile))
       });
 
        history.push('/signin')

@@ -7,7 +7,10 @@ import json
 import time
 import pandas as pd
 from flask_socketio import SocketIO, send,emit
-from answer_evaluation_graph import main
+from answer_evaluation_draft_9 import main
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 
 app = Flask(__name__)
@@ -33,6 +36,30 @@ db=firebase.database()
 storage=firebase.storage()
 
 print("Hey")
+
+def send_notification(receiver, noti):
+	mail_content = "Hello, Testing your account"
+	#The mail addresses and password
+	sender_address = 'ezhirefyp@gmail.com'
+	sender_pass = 'ezpzlmnsqzy'
+	#receiver_address = 'receiver'
+	#Setup the MIME
+	message = MIMEMultipart()
+	message['From'] = sender_address
+	message['To'] = receiver
+	message['Subject'] = 'EzHire Update'   #The subject line
+	#The body and the attachments for the mail
+	message.attach(MIMEText(noti, 'plain'))
+	#Create SMTP session for sending the mail
+	session = smtplib.SMTP('smtp.gmail.com', 587) #use gmail with port
+	session.starttls() #enable security
+	session.login(sender_address, sender_pass) #login with mail_id and password
+	text = message.as_string()
+	session.sendmail(sender_address, receiver, text)
+	session.quit()
+	print('Mail Sent')
+
+
 @socketio.on('connect')
 def on_connect():
 	print("Heyaaaa")
@@ -57,12 +84,15 @@ def handleMessage(msg):
 		intdata={'Status' : 'Pending'}
 		db.child("companyinterview").child(msg['cid']).child(msg['intid']).child('results').child(msg['user']).set(intdata)
 		print("Data Stored")
+		tosend = db.child("users").child(msg['user']).child("email").get().val()
+		noti = "Congratulations! You have successfully completed your interview. \nYou can keep a track of your interview result in the Past Interview Tab.\nYou will receive an email update whenever there is a change in your status.\n \nThank you. \nTeam EzHire."
+		send_notification(tosend, noti)
 
 	
 
 
 
-@app.route('/', methods = ['GET', 'POST'])
+@app.route('/login', methods = ['GET', 'POST'])
 def login():
 	#print("Hello")
 	if request.method == 'POST':
@@ -121,6 +151,10 @@ def acceptcandidate():
 		status = {'Status' : 'Accepted'}
 		didset = db.child("companyinterview").child(companyid).child(interviewid).child('results').child(user).set(status)
 		print(" Accepted ",didset)
+		tosend = db.child("users").child(user).child("email").get().val()
+		noti = "Dear candidate, \nThere is an update in your interview result. Please login into your Ezhire account to check the updated status.\n \nThank you. \nTeam EzHire."
+		send_notification(tosend, noti)
+
 	return(jsonify("Good to go!"))
 
 @app.route('/rejectcandidate', methods = ['GET', 'POST'])
@@ -138,24 +172,27 @@ def rejectcandidate():
 		status = {'Status' : 'Rejected'}
 		didset = db.child("companyinterview").child(companyid).child(interviewid).child('results').child(user).set(status)
 		print(" Accepted ",didset)
+		tosend = db.child("users").child(user).child("email").get().val()
+		noti = "Dear candidate, \nThere is an update in your interview result. Please login into your Ezhire account to check the updated status.\n \nThank you. \nTeam EzHire."
+		send_notification(tosend, noti)
 	return(jsonify("Good to go!"))
 
-@app.route('/signup', methods = ['GET', 'POST'])
-def signup():
-	#data={"Name":"Aadit Kachalia","Age":"21","email":"aaditkachalia@gmail.com"}
-	if request.method == 'POST':
-		user_key=request.get_data()
-		user_id=user_key.decode("utf-8")
-		#print("The user key is ",user_id)
-		db=firebase.database()
-		success={'success':"Successfull response"}
-		user_id=user_id.replace('"','')   
-		user_profile=db.child("users").child(user_id).get().val()
-		#print("The details are....",user_profile)
-		hey=json.dumps(user_profile)
-		#print("YOYOYOYOYO",hey)
-		#return json.dumps(user_profile)
-	return json.dumps(hey)
+# @app.route('/signup', methods = ['GET', 'POST'])
+# def signup():
+# 	#data={"Name":"Aadit Kachalia","Age":"21","email":"aaditkachalia@gmail.com"}
+# 	if request.method == 'POST':
+# 		user_key=request.get_data()
+# 		user_id=user_key.decode("utf-8")
+# 		#print("The user key is ",user_id)
+# 		db=firebase.database()
+# 		success={'success':"Successfull response"}
+# 		user_id=user_id.replace('"','')   
+# 		user_profile=db.child("users").child(user_id).get().val()
+# 		#print("The details are....",user_profile)
+# 		hey=json.dumps(user_profile)
+# 		#print("YOYOYOYOYO",hey)
+# 		#return json.dumps(user_profile)
+# 	return json.dumps(hey)
 @app.route('/scheduleinterview', methods = ['GET', 'POST'])
 def scheduleinterview():
 	if request.method == 'POST':
@@ -297,6 +334,16 @@ def interviewnames():
 		json_data=data.decode("utf-8")
 		#print(user)
 		json_data=json.loads(json_data)
+		companyid=json_data['companyid']
+		interviewid = json_data['interviewid']
+		candidates = candidates=db.child("companyinterview").child(companyid).child(interviewid).child('candidates').get().val()
+		candidates=json.dumps(candidates)
+		candidates=json.loads(candidates)
+		candlist=[]
+		for k,val in candidates.items():
+			candlist.append(val)
+		print(candlist)
+
 		#print("JSON_Data is ", json_data, type(json_data))
 		#user=json_data['user']
 		#user = unquote(user)
@@ -305,6 +352,20 @@ def interviewnames():
 		#user=user.replace("'",'') 
 		#print("User is ", user)
 		interviewdata=db.child("users").get().val()
+		interviewdata = json.dumps(interviewdata)
+		interviewdata = json.loads(interviewdata)
+		print("------------------------------")
+		print(interviewdata)
+		interviewdatal=[]
+		for key in interviewdata:
+			interviewdatal.append(key)
+
+		for i in interviewdatal:
+			if(i in candlist):
+				print("----------Deleting---------")
+				x = interviewdata.pop(i)
+		print(interviewdata)
+
 		#interviewdata=json.dumps(interviewdata)
 		print(type(jsonify(interviewdata)),interviewdata)
 	return(jsonify(interviewdata))
@@ -364,6 +425,9 @@ def schedulenames():
 			didset = db.child("users").child(names).child("interviews").child(companyid).child(interviewid).set(isTaken)
 			print("Setting in child users ", didset)
 			didset = db.child("companyinterview").child(companyid).child(interviewid).child('candidates').push(names)
+			tosend = db.child("users").child(names).child("email").get().val()
+			noti = "Congratulations! There is an interview scheduled for you.\n Please login into your EzHire account to see the details. Team Ezhire wishes you luck for the interview! \n\nThank you. \nTeam EzHire."
+			send_notification(tosend, noti)
 		#user=json_data['user']
 		#user = unquote(user)
 		#user=user.decode("utf-8")
@@ -451,6 +515,7 @@ def finishinterview():
 		companyid = json_data['cname']
 		isTaken = {'isTaken' : 'true'}
 		didset = db.child("users").child(user).child("interviews").child(companyid).child(interviewid).set(isTaken)
+
 		print("Taking Interview ",didset)
 	return(jsonify("Good to go!"))
 
@@ -523,17 +588,27 @@ def register():
 		#print("The json_data is ",json_data)
 		db=firebase.database()
 		email=json_data['email']
+		typeuser = json_data['type']
+		typeuser = int(typeuser)
 		password=json_data['password']
-		x=auth.create_user_with_email_and_password(email, password)
-		#user_id=x['localId']
-		print("Account successfully created bitchhhhhh")
-		user_id = auth.sign_in_with_email_and_password(email,password)
-		print("userid is ",user_id)
-		success={'success':"Successfull response"}
-		# for element in json_data:
-		# 	element.pop('password',True)
-		localid=user_id['localId'].replace('"','')
-		set_account = db.child("users").child(localid).set(json_data)
+		try:
+			auth.create_user_with_email_and_password(email, password)
+			print("Account successfully created bitchhhhhh")
+			user_id = auth.sign_in_with_email_and_password(email,password)
+			print("userid is ",user_id)
+			success={'success':"Successfull response"}
+			# for element in json_data:
+			# 	element.pop('password',True)
+			localid=user_id['localId'].replace('"','')
+			set_account = db.child("users").child(localid).set(json_data)
+			tosend = email
+			if(typeuser == 0):
+				noti = "Congratulations! You have been successfully registered at EzHire. \n EzHire is the world's largest recruitment platform powered by Artificial Intelligence.We hope you will touch new heights in your career using this one of a kind platform.\n \nThank you. \nTeam EzHire."
+			else:
+				noti = "Congratulations! Your company has been successfully registered at EzHire. \n EzHire is the world's largest recruitment platform powered by Artificial Intelligence. We hope that your company will find perfect candidates using this one of a kind platform and save resources as well as energy.\n \nThank you. \nTeam EzHire."
+			send_notification(tosend, noti)
+		except:
+			success={'success':"Account creation failed"}
 		#print("Successfully created")
 		#user_id=user_id.replace('"','')   
 		#user_profile=db.child("users").child(localid).get().val()
@@ -543,32 +618,32 @@ def register():
 		#return json.dumps(user_profile)
 	return json.dumps(success)
 
-@app.route('/dashboard',methods=['GET','POST'])
-def dashboard():
-	if request.method == 'POST':
-		user_key=request.get_data()
-		user_key=request.get_data()
-		user_id=user_key.decode("utf-8")
-		#print("The user key is ",user_id)
-		db=firebase.database()
-		final_interview={}
-		success={'success':"Successfull Interview"}
-		user_id=user_id.replace('"','') 
-		#print("The user id is ",user_id)
-		interview_detail = db.child("interview").get().val()
-		#print("Before any processing ", interview_detail)
-		interview_detail = json.dumps(interview_detail)
-		interview_detail=json.loads(interview_detail)
-		#print("interview_detail", len(interview_detail))
-		if interview_detail is None:
-			final_interview={}
-		else:
-			for i in interview_detail.items():
-				print("Interview details", i)
-				if i[1]["user_id"] == user_id:
-					final_interview[i[0]] = i[1] 
-			final_interview=json.dumps(final_interview)
-	return json.dumps(final_interview)   
+# @app.route('/dashboard',methods=['GET','POST'])
+# def dashboard():
+# 	if request.method == 'POST':
+# 		user_key=request.get_data()
+# 		user_key=request.get_data()
+# 		user_id=user_key.decode("utf-8")
+# 		#print("The user key is ",user_id)
+# 		db=firebase.database()
+# 		final_interview={}
+# 		success={'success':"Successfull Interview"}
+# 		user_id=user_id.replace('"','') 
+# 		#print("The user id is ",user_id)
+# 		interview_detail = db.child("interview").get().val()
+# 		#print("Before any processing ", interview_detail)
+# 		interview_detail = json.dumps(interview_detail)
+# 		interview_detail=json.loads(interview_detail)
+# 		#print("interview_detail", len(interview_detail))
+# 		if interview_detail is None:
+# 			final_interview={}
+# 		else:
+# 			for i in interview_detail.items():
+# 				print("Interview details", i)
+# 				if i[1]["user_id"] == user_id:
+# 					final_interview[i[0]] = i[1] 
+# 			final_interview=json.dumps(final_interview)
+# 	return json.dumps(final_interview)   
 
 if __name__ == '__main__':
 	socketio.run(app,debug=True,port=5000)

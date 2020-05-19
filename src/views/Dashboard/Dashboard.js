@@ -32,6 +32,9 @@ import Open_Chatbot from "views/Open_Chatbot/Open_Chatbot.js"
 import InterviewCard from "./InterviewCard.js"
 import ReactLoading from 'react-loading';
 import { bugs, website, server } from "variables/general.js";
+import Config from "../../Config.js"
+import Auth from "../../Auth.js"
+
 
 import {
   dailySalesChart,
@@ -49,6 +52,7 @@ function loaddata(){
 
 export default function Dashboard() {
 
+  Auth()
   const classes = useStyles();
   let ans
   let count
@@ -59,14 +63,13 @@ const [isloaded, setLoad] = React.useState(false)
 //const [isschedule, setSchedule] = React.useState('false')
 const user=localStorage.getItem('user_id')
 var data ={"user":user}
-fetch("http://127.0.0.1:5000/dashboardinterview",{
+fetch(Config.serverurl+"/dashboardinterview",{
         method:'POST',
     body:JSON.stringify(data),
       })
       .then(res => res.json())
       .then(res =>{
     //localStorage.setItem("interdata",JSON.stringify(res))
-        console.log(res)
         localStorage.setItem("intercand",JSON.stringify(res))
         //res=JSON.stringify(res)
         //console.log("details " + typeof(res)+res)
@@ -82,7 +85,6 @@ fetch("http://127.0.0.1:5000/dashboardinterview",{
         count=0
         ans=Object.entries(ans).map(([key, value]) => {
         count=count+1
-        console.log("key is "+key)
         return (
             <InterviewCard key={key} name={value.name} cname={value.cname} date={value.selectedDate} role={value.role} user={value.user} intkey={key} />
         )

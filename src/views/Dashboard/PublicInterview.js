@@ -6,8 +6,11 @@ import GridContainer from "components/Grid/GridContainer.js";
 import InterviewCard from "./InterviewCard.js"
 import MaterialTable from 'material-table'
 import { Link } from 'react-router-dom'; 
+import Config from "../../Config.js"
+import Auth from "../../Auth.js"
 
 export default function PublicInterview(){
+Auth()
 const [isloaded, setLoad] = React.useState(false)
 let ans
 let tabledata=[]
@@ -17,7 +20,7 @@ let k
 const user=localStorage.getItem('user_id')
 var data ={"user":user}
 var iterate={"iter":'1'}
-fetch("http://127.0.0.1:5000/publicinterview",{
+fetch(Config.serverurl+"/publicinterview",{
         method:'POST',
     body:JSON.stringify(data),
       })
@@ -39,7 +42,6 @@ fetch("http://127.0.0.1:5000/publicinterview",{
             let isspublic=true
         ans=JSON.parse(ans)
         ans=Object.entries(ans).map(([key, value]) => {
-        console.log(key)
         k=Object.entries(iterate).map(([key1, value1]) => {
             return(
                 <Link
@@ -54,7 +56,6 @@ fetch("http://127.0.0.1:5000/publicinterview",{
                         >Go To Interview</Link>
                 )
         })
-        console.log("key is "+key)
         namejson={name : value.name, cname: value.cname, role:value.role, togo:k}
         tabledata.push(namejson)
         namejson={}

@@ -20,6 +20,7 @@ import PDFViewer from 'pdf-viewer-reactjs'
 import ChartistGraph from "react-chartist";
 import {Pie, Doughnut} from 'react-chartjs-2';
 import history from 'history.js'
+import Config from "../../Config.js"
 
  
 
@@ -74,13 +75,12 @@ export default function CandCard(props){
         setOpen(false);
   };
 	var data ={"cid": props.cid, "intid": props.intid, "user":props.user}
-		fetch("http://127.0.0.1:5000/interviewresults",{
+		fetch(Config.serverurl+"/interviewresults",{
         method:'POST',
 		body:JSON.stringify(data),
       })
       .then(res => res.json())
       .then(res =>{
-		console.log(res)
     localStorage.setItem('result', JSON.stringify(res))
 })
 options={
@@ -100,11 +100,9 @@ let type="Pie"
   let count2=0
   const label= ['Correct', 'Incorrect']
   const label2=['Easy', 'Medium', 'Hard']
-   console.log("Answer ", ans)
         if(ans!="null"){
         ans=JSON.parse(ans)
         ans=Object.entries(ans).map(([key, value]) => {
-              console.log(value)
   const data1 = {
   labels: ['Correct', 'Incorrect'],
   datasets: [
@@ -260,26 +258,24 @@ function setfetch(){
 }
 function Accept(){
   var data ={"cid": props.cid, "intid": props.intid, "user":props.user}
-    fetch("http://127.0.0.1:5000/acceptcandidate",{
+    fetch(Config.serverurl+"/acceptcandidate",{
         method:'POST',
     body:JSON.stringify(data),
       })
       .then(res => res.json())
       .then(res =>{
-    console.log(res)
     alert('Candidate Result Updated!')
     history.push('/adminco/schedule')
 })
 }
 function Decline(){
   var data ={"cid": props.cid, "intid": props.intid, "user":props.user}
-    fetch("http://127.0.0.1:5000/rejectcandidate",{
+    fetch(Config.serverurl+"/rejectcandidate",{
         method:'POST',
     body:JSON.stringify(data),
       })
       .then(res => res.json())
       .then(res =>{
-    console.log(res)
     alert('Candidate Result Updated!')
     history.push('/adminco/schedule')
 })

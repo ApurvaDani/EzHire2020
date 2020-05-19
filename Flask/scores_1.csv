@@ -1,0 +1,6 @@
+topic,easy_score,medium_score,hard_score,easy_answered,medium_answered,hard_answered,total_score,out_of,proficiency
+OOP,8.0,10.0,0.0,2,3,2,18.0,35,50.0
+DJ,5.0,0.0,0.0,1,4,0,5.0,25,20.0
+NW,0.0,0.0,0.0,3,0,0,0.0,15,0.0
+ML,5.0,14.0,7.0,1,4,4,26.0,45,70.0
+EH,5.0,5.0,0.0,3,2,0,10.0,25,30.0

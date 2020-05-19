@@ -26,7 +26,6 @@ export default function InterviewCard(props){
 	const classes = useStyles();
 	function openchat(event){
 
-    console.log(event.target.id)
   }
 	return(
 		 <GridItem xs={12} sm={12} md={4}>

@@ -48,44 +48,13 @@ function loaddata(){
 }
 
 export default function DashboardCo() {
-//   useEffect(()=>{
-//   console.log("Huba huba")
-//   const data=localStorage.getItem('user_id')
-//   fetch("http://127.0.0.1:5000/dashboard",{
-//         method:'POST',
-//         headers: {
-//           'Content-Type': 'application/json',
-//           'Access-Control-Allow-Origin': '*',
-//         },
-//         body:JSON.stringify(data),
-//       })
-//       .then(res => res.json())
-//       .then(res =>{
-//         console.log("Success",typeof(res))
-//         res=JSON.stringify(res)
-//         const x= JSON.parse(res)
-//         const y = Object.values(x)
-//         console.log("Success2",typeof(y),y)
-//         const interviews=[]
-//         for (var key in x){
-//           //console.log("Yaya",x[key]["companyName"])
-//             console.log("Yaya",x[key][1]["companyName"])
-//             let companyname = x[key][1]["companyName"]
-//             interviews.push(<InterviewCard key={companyname} companyname={companyname} />)
-//         }
-//         localStorage.setItem("interviewcard",{interviews})
-//         console.log(interviews)
-        
 
-//       });
-// },[interviews]);
   const classes = useStyles();
   function openchat(){
     window.open("https://www.google.com/")
   }
   let interviews = localStorage.getItem("interviewcard")
   interviews = interviews.split(',');
-  console.log("inside dashboard interviews ",typeof(interviews), interviews)
   const data1=localStorage.getItem('user_id')
   return (
     <div>

@@ -1,10 +1,11 @@
 ﻿answerid,qid,answer
 5001,1001,"An object is an instance of a class. It has its own state, behavior, and identity."
 5002,1002,A destructor is a method which is automatically called when the object is made of scope or destroyed. Destructor name is also same as class name but with the tilde symbol before the name.
-5003,1003,An inline function is a technique used by the compilers and instructs to insert complete body of the function wherever that function is used in the program source code.
+5003,1003,An inline function is a technique used by the compiler to insert complete body of the function wherever that function is used in the program source code.
 5004,1004,"A friend function is a friend of a class that is allowed to access to Public, private, or protected data in that same class. If the function is defined outside the class cannot access such information. A friend can be declared anywhere in the class declaration, and it cannot be affected by access control keywords like private, public, or protected."
-5005,1005,"Function overloading is a regular function, but it can perform different tasks. It allows the creation of several methods with the same name which differ from each other by the type of input and output of the function."
-5006,1006,"The super keyword is used to invoke the overridden method, which overrides one of its superclass methods. This keyword allows to access overridden methods and also to access hidden members of the superclass."
+5005,1005,"Function overloading is a regular function, but it can perform different tasks."
+5016,1005,It allows the creation of several methods with the same name which differ from each other by the type of input and output of the function.
+5006,1006,"The super keyword is used to invoke the overridden method, which overrides one of its super class methods. This keyword allows to access overridden methods and also to access hidden members of the superclass."
 5007,1007,Ternary operator can take Three (3) arguments.
 5008,1008,Self pointer refers to the current object of a class. Self keyword is used as a pointer which differentiates between the current object with the global object. It refers to the current object.
 5009,1009,The default access modifier of a class is Private by default.
@@ -14,11 +15,11 @@
 5014,1012,It is a blueprint for any object. It holds information about attributes of its object
 5013,1013,Single level inheritance enables a derived class to inherit characteristics from a single parent class.
 5015,1001,Instance of a class
-5101,1101,more than zero
+5101,1101,one
 5102,1102,when no exception occurs
 5103,1103,"yes, like except TypeError, SyntaxError [,…]"
 5104,1104,always
-5105,1105,we get a False
+5105,1105,we get false
 5106,1106,Exception in Python is nothing but errors which are encountered at the run time.
 5107,1107,Errors are nothing but mistakes in the code which are potentially harmful.
 5108,1108,We can handle exception using try catch statement.
@@ -71,10 +72,29 @@
 5413,1407,It is used to determine the extent to which there is a linear relationship between a dependent variable and one or more independent variables.
 5414,1407,In simple linear regression a single independent variable is used to predict the value of a dependent variable.
 5415,1408,Classification is the process of predicting the class of given data points.
-5416,1408,It separates observations into groups based on their characteristics. F
+5416,1408,It separates observations into groups based on their characteristics.
 5417,1408,The concept of classification in machine learning is concerned with building a model that separates data into distinct classes
 5418,1409,Association learning is a rule based machine learning and data mining technique that finds important relations between variables or features in a data set.
 5419,1409,Association rule learning is a rule-based machine learning method for discovering interesting relations between variables in large databases.
 5420,1409,It is intended to identify strong rules discovered in databases using some measures of interestingness.
 5421,1410,Transfer learning make use of the knowledge gained while solving one problem and applying it to a different but related problem.
 5422,1410,Transfer learning is a machine learning method where a model developed for a task is reused as the starting point for a model on a second task.
+9001,9001,compiler is used to insert the body of the function where the function is used in the source code.
+9002,9002,destructor is called when the object is made of scope or destroyed.
+9003,9003,by providing different input and output types.
+9004,9004,It helps access the methods by overriding the super class methods.
+9005,9005,Self pointer differentiates between global object and the current local object.
+9006,9006,It defines the commong attributes and behaviours of its objects.
+9007,9007,Exceptions occur at run time
+9008,9008,Sockets are used to send and receive data.
+9009,9009,It prevents classes from being in an inconsistent state.
+9010,9010,TCP
+9011,9011,transport provider
+9012,9012,actions
+9013,9013,server
+9014,9014,class
+9015,9015,"it aims at improving bias, prediction and reducing variance"
+9016,9016,noise
+9017,9017,It caters to artificial neural networks with gradient descent.
+9018,9018,dependent and independent variables
+9019,9019,variables and datasets

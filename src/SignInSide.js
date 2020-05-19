@@ -19,7 +19,7 @@ import Admin from "layouts/Admin"
 import DashboardPage from "views/Dashboard/Dashboard.js";
 import InterviewCard from "views/Dashboard/InterviewCard.js"
 import history from "./history"
-
+import Config from "./Config.js"
 
 
 
@@ -93,7 +93,7 @@ export default function SignInSide() {
     setLoginf("none")
     var response
     var data ={"email":email,"password":password}
-      fetch("http://127.0.0.1:5000/",{
+      fetch(Config.serverurl+"/login",{
         method:'POST',
         body:JSON.stringify(data),
       })

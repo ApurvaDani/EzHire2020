@@ -37,27 +37,29 @@ storage=firebase.storage()
 
 print("Hey")
 
-def send_notification(receiver, noti):
-	mail_content = "Hello, Testing your account"
-	#The mail addresses and password
-	sender_address = 'ezhirefyp@gmail.com'
-	sender_pass = 'ezpzlmnsqzy'
-	#receiver_address = 'receiver'
-	#Setup the MIME
-	message = MIMEMultipart()
-	message['From'] = sender_address
-	message['To'] = receiver
-	message['Subject'] = 'EzHire Update'   #The subject line
-	#The body and the attachments for the mail
-	message.attach(MIMEText(noti, 'plain'))
-	#Create SMTP session for sending the mail
-	session = smtplib.SMTP('smtp.gmail.com', 587) #use gmail with port
-	session.starttls() #enable security
-	session.login(sender_address, sender_pass) #login with mail_id and password
-	text = message.as_string()
-	session.sendmail(sender_address, receiver, text)
-	session.quit()
-	print('Mail Sent')
+#Send mail and put your emailid and password Uncomment all the send notification functions.
+
+# def send_notification(receiver, noti):
+# 	mail_content = "Hello, Testing your account"
+# 	#The mail addresses and password
+# 	sender_address = ''
+# 	sender_pass = ''
+# 	#receiver_address = 'receiver'
+# 	#Setup the MIME
+# 	message = MIMEMultipart()
+# 	message['From'] = sender_address
+# 	message['To'] = receiver
+# 	message['Subject'] = 'EzHire Update'   #The subject line
+# 	#The body and the attachments for the mail
+# 	message.attach(MIMEText(noti, 'plain'))
+# 	#Create SMTP session for sending the mail
+# 	session = smtplib.SMTP('smtp.gmail.com', 587) #use gmail with port
+# 	session.starttls() #enable security
+# 	session.login(sender_address, sender_pass) #login with mail_id and password
+# 	text = message.as_string()
+# 	session.sendmail(sender_address, receiver, text)
+# 	session.quit()
+# 	print('Mail Sent')
 
 
 @socketio.on('connect')
@@ -86,7 +88,7 @@ def handleMessage(msg):
 		print("Data Stored")
 		tosend = db.child("users").child(msg['user']).child("email").get().val()
 		noti = "Congratulations! You have successfully completed your interview. \nYou can keep a track of your interview result in the Past Interview Tab.\nYou will receive an email update whenever there is a change in your status.\n \nThank you. \nTeam EzHire."
-		send_notification(tosend, noti)
+# 		send_notification(tosend, noti)
 
 	
 
@@ -153,7 +155,7 @@ def acceptcandidate():
 		print(" Accepted ",didset)
 		tosend = db.child("users").child(user).child("email").get().val()
 		noti = "Dear candidate, \nThere is an update in your interview result. Please login into your Ezhire account to check the updated status.\n \nThank you. \nTeam EzHire."
-		send_notification(tosend, noti)
+# 		send_notification(tosend, noti)
 
 	return(jsonify("Good to go!"))
 
@@ -174,7 +176,7 @@ def rejectcandidate():
 		print(" Accepted ",didset)
 		tosend = db.child("users").child(user).child("email").get().val()
 		noti = "Dear candidate, \nThere is an update in your interview result. Please login into your Ezhire account to check the updated status.\n \nThank you. \nTeam EzHire."
-		send_notification(tosend, noti)
+# 		send_notification(tosend, noti)
 	return(jsonify("Good to go!"))
 
 # @app.route('/signup', methods = ['GET', 'POST'])
@@ -427,7 +429,7 @@ def schedulenames():
 			didset = db.child("companyinterview").child(companyid).child(interviewid).child('candidates').push(names)
 			tosend = db.child("users").child(names).child("email").get().val()
 			noti = "Congratulations! There is an interview scheduled for you.\n Please login into your EzHire account to see the details. Team Ezhire wishes you luck for the interview! \n\nThank you. \nTeam EzHire."
-			send_notification(tosend, noti)
+# 			send_notification(tosend, noti)
 		#user=json_data['user']
 		#user = unquote(user)
 		#user=user.decode("utf-8")
@@ -606,7 +608,7 @@ def register():
 				noti = "Congratulations! You have been successfully registered at EzHire. \n EzHire is the world's largest recruitment platform powered by Artificial Intelligence.We hope you will touch new heights in your career using this one of a kind platform.\n \nThank you. \nTeam EzHire."
 			else:
 				noti = "Congratulations! Your company has been successfully registered at EzHire. \n EzHire is the world's largest recruitment platform powered by Artificial Intelligence. We hope that your company will find perfect candidates using this one of a kind platform and save resources as well as energy.\n \nThank you. \nTeam EzHire."
-			send_notification(tosend, noti)
+# 			send_notification(tosend, noti)
 		except:
 			success={'success':"Account creation failed"}
 		#print("Successfully created")
